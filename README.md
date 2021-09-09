@@ -1,6 +1,8 @@
 # Meritocracy-Plugin
 Meritocracy Wordpress Plugin
 
+The intended result of this plugin is to accept payments through wooocommerence using NEAR
+
 Documentation resources used: 
 https://developer.wordpress.org/plugins/intro/
 https://developer.wordpress.org/plugins/plugin-basics/
