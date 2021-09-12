@@ -1,0 +1,39 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/gh/nearprotocol/near-api-js/dist/near-api-js.js"></script>
+<script>
+// configure minimal network settings and key storage
+const nearConfig = {
+  networkId: 'testnet',
+  contractName: 'testtest',
+  nodeUrl: "https://rpc.testnet.near.org",
+  walletUrl: 'https://wallet.near.org',
+  helperUrl: 'https://helper.mainnet.near.org',
+  explorerUrl: 'https://explorer.testnet.near.org'
+  
+};
+
+// open a connection to the NEAR platform
+(async function () {
+  const privateKey = 'ed25519:zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
+  //const keyPair = nearApi.utils.KeyPair.fromString(privateKey);
+  const keyPair = nearApi.KeyPair.fromString(privateKey);
+
+  const keyStore = new nearApi.keyStores.InMemoryKeyStore();
+  await keyStore.setKey('testnet', 'testtest', keyPair);
+  nearConfig.deps = { keyStore };
+// console.log(keyStore);
+// console.log(nearConfig);
+  window.near = await nearApi.connect(nearConfig);
+  
+
+
+    const wallet = new nearApi.WalletConnection(window.near);
+    const account = await window.near.account("testtest.testnet");
+    console.log(account);
+
+    await account.createAccount(
+    "testtest2.testnet", // new account name
+    "8hSHprDq2StXwMtNd43wDTXQYsjXcD4MJTXQYsjXcdc", // public key for new account
+    "100" // initial balance for new account in yoctoNEAR
+);
